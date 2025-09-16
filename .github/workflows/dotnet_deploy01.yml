@@ -35,6 +35,25 @@ jobs:
         name: .net-app
         path: ${{env.DOTNET_ROOT}}/myapp
 
+    - name: archive drcloud 
+      run: tar cvfz ./myapp_prod.tar.gz ${{env.DOTNET_ROOT}}/myapp
 
 
+    - name: AWS configure credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.CICD_AWS_ACCESS_KEY  }}
+        aws-secret-access-key: ${{ secrets.CICD_AWS_ACCESS_SECRET_KEY }}
+        aws-region: ap-northeast-2
+        
+    - name: upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./wordpress_prod.tar.gz s3://cicd-deploycodedir
       
+    #- name: deploy with AWS codeDeploy
+    #  run: aws deploy create-deployment
+    #    --application-name github-wordpress_prod
+    #    --deployment-config-name CodeDeployDefault.OneAtATime
+    #    --deployment-group-name github-wordpress_prod
+    #    --s3-location bucket=github-wordpress-deploy-bucket,bundleType=tgz,key=wordpress_prod.tar.gz
+
+
