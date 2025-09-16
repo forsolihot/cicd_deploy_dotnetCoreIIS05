@@ -25,3 +25,6 @@ jobs:
 
 #    - name: Publish # 배포 단계 추가
 #      run: dotnet publish --no-build -c Release -o ./publish
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
