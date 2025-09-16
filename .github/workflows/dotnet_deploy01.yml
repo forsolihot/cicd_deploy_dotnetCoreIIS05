@@ -47,7 +47,7 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./wordpress_prod.tar.gz s3://cicd-deploycodedir
+      run: aws s3 cp --region ap-northeast-2   ./myapp_prod.tar.gz   s3://cicd-deploycodedir
       
     #- name: deploy with AWS codeDeploy
     #  run: aws deploy create-deployment
